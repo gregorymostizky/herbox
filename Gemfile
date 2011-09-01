@@ -9,6 +9,11 @@ gem 'sqlite3'
 
 gem 'tropo-webapi-ruby'
 
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'guard-rspec'
+end
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

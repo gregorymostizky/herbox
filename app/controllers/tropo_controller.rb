@@ -6,8 +6,8 @@ class TropoController < ApplicationController
   end
 
   def hello 
-    to = params[:session][:params][:name]
-    msg = params[:session][:params][:msg]
+    to = params[:session][:parameters][:name]
+    msg = params[:session][:parameters][:msg]
 
 #    response = Tropo::Generator.say 'Hello World! Would you like a piece of cake?'
 #    puts "Tropo Response : #{response}"
