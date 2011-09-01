@@ -1,0 +1,15 @@
+<p>Input parameters below:</p>
+
+<%= form_for :start, :url => {:action => :start } do |f| %>
+  <p>
+    Jabber User Name
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    Message
+    <%= f.text_field :msg %>
+  </p>
+  <p>
+    <%= f.submit :send %>
+  </p>
+<% end %>
