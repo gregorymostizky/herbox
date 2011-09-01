@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'cgi'
 
 class TropoController < ApplicationController
   def index
@@ -19,8 +20,11 @@ class TropoController < ApplicationController
     render :text => tropo.response, :content_type => 'application/json'
   end
 
-  def start 
-    open("https://api.tropo.com/1.0/sessions?action=create&token=#{TROPO_TOKEN_MESSAGING}&name=#{params[:start][:name]}&msg=#{params[:start][:msg]}")
-    render :text => 'Conversation Started'
+  def start
+    session_uri =  "https://api.tropo.com/1.0/sessions?action=create&token=#{TROPO_TOKEN_MESSAGING}"
+    session_uri += "&name=#{CGI.escape(params[:start][:name])}"
+    session_uri += "&msg=#{CGI.escape(params[:start][:msg])}"
+    response = open session_uri
+    render :text => "Conversation Started: #{response}"
   end
 end
