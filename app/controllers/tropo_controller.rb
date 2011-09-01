@@ -6,8 +6,8 @@ class TropoController < ApplicationController
   end
 
   def hello 
-    to = params[:session][:parameters][:name] rescue nil
-    msg = params[:session][:parameters][:msg] rescue nil
+    #to = params[:session][:parameters][:name] rescue nil
+    #msg = params[:session][:parameters][:msg] rescue nil
 
     from = params[:session][:from][:id] rescue nil
     txt = params[:session][:initialText] rescue nil
@@ -17,7 +17,7 @@ class TropoController < ApplicationController
       ask(
         :name => 'question',
         :timeout => 120,
-        :say => {:value => "Have you ever #{txt}?"},
+        :say => {:value => "Have you ever tried safito?"},
         :choices => {:value => "yes, no"}
       )
       on :event => 'continue', :next => '/tropo/answer'
@@ -29,11 +29,12 @@ class TropoController < ApplicationController
   end
 
   def answer
-    answer = params[:result][:actions][:question][:value]
+    answer = params[:result][:actions][:value]
     tropo = Tropo::Generator.new do
       say :value => "Your answer is #{answer}"
     end
 
+    render :text => tropo.response, :content_type => 'application/json'
   end
 
   def noanswer
