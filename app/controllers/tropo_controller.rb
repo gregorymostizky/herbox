@@ -2,7 +2,6 @@ require 'open-uri'
 
 class TropoController < ApplicationController
   def index
-    render :text => 'hello'
   end
 
   def hello 
@@ -18,6 +17,7 @@ class TropoController < ApplicationController
   end
 
   def start 
-    open("https://api.tropo.com/1.0/sessions?action=create&token=#{TROPO_TOKEN_MESSAGING}")
+    open("https://api.tropo.com/1.0/sessions?action=create&token=#{TROPO_TOKEN_MESSAGING}" 
+         + "&name=#{params[:name]}&msg=#{params[:msg]}")
   end
 end
