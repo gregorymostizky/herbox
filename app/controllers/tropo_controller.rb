@@ -9,14 +9,33 @@ class TropoController < ApplicationController
     to = params[:session][:parameters][:name]
     msg = params[:session][:parameters][:msg]
 
-#    response = Tropo::Generator.say 'Hello World! Would you like a piece of cake?'
-#    puts "Tropo Response : #{response}"
-
     tropo = Tropo::Generator.new do
       call(:to => to, :network => 'Jabber')
-      say(:value => msg)
+      ask(
+        :name => 'question',
+        :timeout => 120,
+        :say => {:value => "Have you ever #{msg}?"},
+        :choices => {:value => "yes(yes,y), no(no, n)"}
+      )
+      on :event => 'continue', :next => '/answer'
+      on :event => 'incomplete', :next => '/noanswer'
     end
     
+    render :text => tropo.response, :content_type => 'application/json'
+  end
+
+  def continue
+    answer = params[:result][:actions][:question][:value]
+    tropo = Tropo::Generator.new do
+      say :value => "Your answer is #{answer}"
+    end
+
+  end
+
+  def noanswer
+    tropo = Tropo::Generator.new do
+      say :value => 'Are you trippin mon?'
+    end
     render :text => tropo.response, :content_type => 'application/json'
   end
 
