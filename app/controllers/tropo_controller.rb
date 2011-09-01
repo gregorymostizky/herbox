@@ -10,7 +10,7 @@ class TropoController < ApplicationController
     msg = params[:session][:parameters][:msg]
 
     tropo = Tropo::Generator.new do
-      call(:to => to, :network => 'Jabber')
+      call(:to => to, :from => 'herbox@tropo.im', :network => 'Jabber')
       ask(
         :name => 'question',
         :timeout => 120,
