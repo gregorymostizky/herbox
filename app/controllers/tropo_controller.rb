@@ -17,7 +17,6 @@ class TropoController < ApplicationController
   end
 
   def start 
-    open("https://api.tropo.com/1.0/sessions?action=create&token=#{TROPO_TOKEN_MESSAGING}" 
-         + "&name=#{params[:name]}&msg=#{params[:msg]}")
+    open("https://api.tropo.com/1.0/sessions?action=create&token=#{TROPO_TOKEN_MESSAGING}&name=#{params[:name]}&msg=#{params[:msg]}")
   end
 end
