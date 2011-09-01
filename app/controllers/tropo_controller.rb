@@ -15,7 +15,7 @@ class TropoController < ApplicationController
         :name => 'question',
         :timeout => 120,
         :say => {:value => "Have you ever #{msg}?"},
-        :choices => {:value => "[ANY]"}
+        :choices => {:value => "yes,no"}
       )
       on :event => 'continue', :next => '/tropo/answer'
       on :event => 'incomplete', :next => '/tropo/noanswer'
@@ -24,7 +24,7 @@ class TropoController < ApplicationController
     render :text => tropo.response, :content_type => 'application/json'
   end
 
-  def continue
+  def answer
     answer = params[:result][:actions][:question][:value]
     tropo = Tropo::Generator.new do
       say :value => "Your answer is #{answer}"
