@@ -12,16 +12,16 @@ class TropoController < ApplicationController
     from = params[:session][:from][:id] rescue nil
     txt = params[:session][:initialText] rescue nil
 
-    tropo = Tropo::Generator.new do
+    tropo = Tropo::Generator.new do |t|
       #call(:to => to || from, :from => 'herbox@tropo.im', :network => 'Jabber')
-      ask(
+      t.ask(
         :name => 'question',
         :timeout => 120,
         :say => {:value => "Have you ever #{txt}?"},
         :choices => {:value => "[ANY]"}
       )
-      on :event => 'continue', :next => '/tropo/answer'
-      on :event => 'incomplete', :next => '/tropo/noanswer'
+      t.on :event => 'continue', :next => '/tropo/answer'
+      t.on :event => 'incomplete', :next => '/tropo/noanswer'
     end
 
     render :text => tropo.response, :content_type => 'application/json'
