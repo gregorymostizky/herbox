@@ -17,8 +17,8 @@ class TropoController < ApplicationController
         :say => {:value => "Have you ever #{msg}?"},
         :choices => {:value => "yes(yes,y), no(no, n)"}
       )
-      on :event => 'continue', :next => '/answer'
-      on :event => 'incomplete', :next => '/noanswer'
+      on :event => 'continue', :next => '/tropo/answer'
+      on :event => 'incomplete', :next => '/tropo/noanswer'
     end
     
     render :text => tropo.response, :content_type => 'application/json'
