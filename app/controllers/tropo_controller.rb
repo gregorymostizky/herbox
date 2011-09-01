@@ -19,7 +19,7 @@ class TropoController < ApplicationController
           :name => 'question',
           :timeout => 120,
           :say => {:value => "Have you ever #{msg}?"},
-          :choices => "yes,no"
+          :choices => {:value => "yes, no"}
         )
         on :event => 'continue', :next => '/tropo/answer'
         on :event => 'incomplete', :next => '/tropo/noanswer'
