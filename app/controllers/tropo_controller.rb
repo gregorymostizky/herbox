@@ -14,10 +14,12 @@ class TropoController < ApplicationController
 
     tropo = Tropo::Generator.new do
       #call(:to => to || from, :from => 'herbox@tropo.im', :network => 'Jabber')
-      ask(:name => 'question', :timeout => 30, :require => true) do
-        say :value => "Have you ever tried safito?"
-        choices :value => "yes, no"
-      end
+      ask(
+        :name => 'question',
+        :timeout => 120,
+        :say => {:value => "Have you ever tried safito?"},
+        :choices => {:value => "yes, no"}
+      )
       on :event => 'continue', :next => '/tropo/answer'
       on :event => 'incomplete', :next => '/tropo/noanswer'
     end
